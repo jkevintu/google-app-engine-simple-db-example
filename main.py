@@ -10,7 +10,7 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.out.write("""
         <form action="/" enctype="multipart/form-data" method="post">
-            <div><label>keyname:</label></div>
+            <div><label>keyname(*):</label></div>
             <div><input type="text" name="keyname" value=''></div>
             <div><label>name:</label></div>
             <div><input type="text" name="name" value=''></div>
@@ -23,7 +23,11 @@ class MainHandler(webapp2.RequestHandler):
 
         success = self.request.get("success")
         if success :
+            dbkeyname = self.request.get('keyname')
+            dbname = self.request.get('name')
+            dbvalue = self.request.get('value')
             self.response.out.write("<br/><b>Update DB success!</b><br/>")
+            self.response.out.write("key_name=" + dbkeyname + "  name=" + dbname + "  value=" + dbvalue)
 
     def post(self):
         dbkeyname = self.request.get('keyname')
@@ -42,7 +46,7 @@ class MainHandler(webapp2.RequestHandler):
                 testDBvalue = dbvalue
             )
             updateDb.put()
-        self.redirect("/?success=1")
+        self.redirect("/?success=1&keyname=" + dbkeyname + "&name=" + dbname + "&value=" + dbvalue)
 
 class testDB(db.Model):
 	testDBname = db.StringProperty()
