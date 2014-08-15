@@ -1,4 +1,4 @@
-Google App Engine Simple DB Example
+Google App Engine Simple Gql DB Example
 ===========================
 
 This is a simple example that show you how to add and update db value.
